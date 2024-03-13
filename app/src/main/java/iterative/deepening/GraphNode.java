@@ -24,6 +24,10 @@ public class GraphNode {
         return identity;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     
 
     
