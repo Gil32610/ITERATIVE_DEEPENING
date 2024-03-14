@@ -7,10 +7,6 @@ public class Graph {
     private Boolean[][] adjacencyMatrix;
     private ArrayList<GraphNode> nodeList;
     private int time;
-    private int[] start;
-    private int[] finish;
-    private Character[] previous;
-    
 
     public Graph(ArrayList<GraphNode> nodeList) {
         this.nodeList = nodeList;
@@ -49,40 +45,41 @@ public class Graph {
     }
 
     public void depthFirstSearch(int s) {
-         start = new int[nodeList.size()];
-         finish = new int[nodeList.size()];
-         previous = new Character[nodeList.size()];
-        for (int index = 0; index < nodeList.size(); index++) {
-            nodeList.get(index).setColor(Color.WHITE);
-            start[index] = -2;
-            finish[index] = -2;
-            previous[index]= null;
+        SearchResult result = new SearchResult(nodeList.size());
+        result.setDefaultValues();
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            nodeList.get(i).setColor(Color.WHITE);
         }
         time = -1;
-        dfsVisit(s);
-        searchResult();
-    }
-    private void searchResult(){
-        System.out.println("DFS result:");
-        System.out.println("Time of discover for each node:");
-        System.out.println(Arrays.toString(start));
-        System.out.println("Time of finish for each node");
-        System.out.println(Arrays.toString(finish));
-        System.out.println("Parentized Structure: ");
-        System.out.println(Arrays.toString(previous));
+
+        dfsVisit(s, result);
+
+
+        // iterative deepening goes here
+        searchResult(result);
     }
 
-    private void dfsVisit(int u){
-        start[u] = ++time;
+    private void searchResult(SearchResult result) {
+        System.out.println("DFS result:");
+        System.out.println("Time of discover for each node:");
+        System.out.println(Arrays.toString(result.getStart()));
+        System.out.println("Time of finish for each node");
+        System.out.println(Arrays.toString(result.getFinish()));
+        System.out.println("Parentized Structure: ");
+        System.out.println(Arrays.toString(result.getPrevious()));
+    }
+
+    private void dfsVisit(int u, SearchResult result) {
+        result.setStartTime(++time);
         nodeList.get(u).setColor(Color.GRAY);
         for (int v = 0; v < adjacencyMatrix.length; v++) {
-            if(adjacencyMatrix[u][v] && nodeList.get(v).getColor().equals(Color.WHITE)){
-                previous[v] = nodeList.get(u).getIdentity();
-                dfsVisit(v);
+            if (adjacencyMatrix[u][v] && nodeList.get(v).getColor().equals(Color.WHITE)) {
+                result.setPreviousNode(nodeList.get(u).getIdentity(), v);
+                dfsVisit(v, result);
             }
         }
         nodeList.get(u).setColor(Color.BLACK);
-        finish[u] = ++time;
+       result.setFinishTime(++time);
     }
 
 }
