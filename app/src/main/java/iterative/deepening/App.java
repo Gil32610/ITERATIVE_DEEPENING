@@ -3,12 +3,11 @@
  */
 package iterative.deepening;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import iterative.deepening.IDDFS.Graph;
 
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
+        Graph graph = new Graph(null);
     }
 }

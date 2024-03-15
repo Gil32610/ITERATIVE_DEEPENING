@@ -1,8 +1,10 @@
-package iterative.deepening;
+package iterative.deepening.IDDFS;
+
+import com.google.errorprone.annotations.OverridingMethodsMustInvokeSuper;
 
 public class GraphNode {
 
-    private Character identity;
+    private String identity;
     private Color color;
     private int value;
 
@@ -28,8 +30,13 @@ public class GraphNode {
         this.color = color;
     }
 
-    
-
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof GraphNode){
+            GraphNode node = (GraphNode) obj;
+            return this.value == node.value;
+        }else return false;
+    }
     
 
 }

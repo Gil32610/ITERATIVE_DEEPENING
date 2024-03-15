@@ -1,4 +1,4 @@
-package iterative.deepening;
+package iterative.deepening.IDDFS;
 
 public enum Color {
     WHITE,

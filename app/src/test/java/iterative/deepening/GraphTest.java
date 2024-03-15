@@ -1,6 +1,9 @@
 package iterative.deepening;
 
 import org.junit.jupiter.api.Test;
+
+import iterative.deepening.IDDFS.GraphNode;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;

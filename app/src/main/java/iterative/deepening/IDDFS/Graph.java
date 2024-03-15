@@ -1,16 +1,17 @@
-package iterative.deepening;
+package iterative.deepening.IDDFS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Graph {
-    private Boolean[][] adjacencyMatrix;
+    private boolean[][] adjacencyMatrix;
     private ArrayList<GraphNode> nodeList;
     private int time;
+    private SearchResult result;
 
     public Graph(ArrayList<GraphNode> nodeList) {
         this.nodeList = nodeList;
-        this.adjacencyMatrix = new Boolean[nodeList.size()][nodeList.size()];
+        this.adjacencyMatrix = new boolean[nodeList.size()][nodeList.size()];
     }
 
     public void addUndirectedEdge(int u, int v) {
@@ -44,22 +45,30 @@ public class Graph {
         return status ? 1 : 0;
     }
 
-    public void depthFirstSearch(int s) {
-        SearchResult result = new SearchResult(nodeList.size());
-        result.setDefaultValues();
+    public GraphNode depthFirstSearch(int s, int key) {
+        // SearchResult result = new SearchResult(nodeList.size());
+        // result.setDefaultValues();
+        setNotVisited();
+        time = -1;
+
+        GraphNode result = null;
+
+        // iterative deepening goes here
+        for (int i = 0; i < adjacencyMatrix.length && result == null; i++) {
+            result = dfsVisit(s, i, key);
+            setNotVisited();
+        }
+        searchResult();
+        return result;
+    }
+
+    private void setNotVisited() {
         for (int i = 0; i < adjacencyMatrix.length; i++) {
             nodeList.get(i).setColor(Color.WHITE);
         }
-        time = -1;
-
-        dfsVisit(s, result);
-
-
-        // iterative deepening goes here
-        searchResult(result);
     }
 
-    private void searchResult(SearchResult result) {
+    private void searchResult() {
         System.out.println("DFS result:");
         System.out.println("Time of discover for each node:");
         System.out.println(Arrays.toString(result.getStart()));
@@ -69,17 +78,29 @@ public class Graph {
         System.out.println(Arrays.toString(result.getPrevious()));
     }
 
-    private void dfsVisit(int u, SearchResult result) {
-        result.setStartTime(++time);
+    private GraphNode dfsVisit(int u, int maxDepth, int key) {
+        GraphNode result = null;
+        this.result.setStartTime(++time);
         nodeList.get(u).setColor(Color.GRAY);
+        if (nodeList.get(u).getValue() == key) {
+            result = nodeList.get(u);
+        }
+
+        if (maxDepth <= 0) {
+            return result;
+        }
         for (int v = 0; v < adjacencyMatrix.length; v++) {
-            if (adjacencyMatrix[u][v] && nodeList.get(v).getColor().equals(Color.WHITE)) {
-                result.setPreviousNode(nodeList.get(u).getIdentity(), v);
-                dfsVisit(v, result);
+            if (adjacencyMatrix[u][v] && nodeList.get(v).getColor().equals(Color.WHITE) && result == null) {
+                this.result.setPreviousNode(nodeList.get(u).getIdentity(), v);
+                result = dfsVisit(v, maxDepth - 1, key);
+                if (result != null) {
+                    break;
+                }
             }
         }
         nodeList.get(u).setColor(Color.BLACK);
-       result.setFinishTime(++time);
+        this.result.setFinishTime(++time);
+        return result;
     }
 
 }

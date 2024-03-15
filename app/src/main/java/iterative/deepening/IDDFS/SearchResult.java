@@ -1,17 +1,18 @@
-package iterative.deepening;
+package iterative.deepening.IDDFS;
 
 
 
 public class SearchResult {
     private int[] start;
     private int[] finish;
-    private Character[] previous;
-
+    private String[] previous;
+    private int size;
 
     public SearchResult(int size){
         this.start = new int[size];
         this.finish = new int[size];
-        this.previous = new Character[size];
+        this.previous = new String[size];
+        this.size = size;
     }
 
 
@@ -25,7 +26,7 @@ public class SearchResult {
     }
 
 
-    public Character[] getPrevious() {
+    public String[] getPrevious() {
         return previous;
     }
 
@@ -37,13 +38,12 @@ public class SearchResult {
         this.start[time]= time;
     }
 
-    public void setPreviousNode(char c, int index){
-        this.previous[index] = Character.toUpperCase(c);
+    public void setPreviousNode(String s, int index){
+        this.previous[index] = s.toLowerCase();
     }
 
     public void setDefaultValues(){
-        for (int index = 0; index < nodeList.size(); index++) {
-            nodeList.get(index).setColor(Color.WHITE);
+        for (int index = 0; index < size; index++) {
             start[index] = -2;
             finish[index] = -2;
             previous[index]= null;
