@@ -51,8 +51,8 @@ public class GraphTest {
 
     @Test
     public void testSimpleGraph() {
-        GraphNode expected = new GraphNode("União da Vitória");
-        GraphNode actual = graph.depthFirstSearch(0, "União da Vitória".toUpperCase());
+        GraphNode expected = new GraphNode("Guarapuava");
+        GraphNode actual = graph.depthFirstSearch(0, "Guarapuava".toUpperCase());
         Assertions.assertEquals(expected, actual);
     }
 

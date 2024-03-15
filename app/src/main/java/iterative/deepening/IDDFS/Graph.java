@@ -61,12 +61,12 @@ public class Graph {
 
         // iterative deepening goes here
         for (int i = 0; i < adjacencyMatrix.length && result == null; i++) {
-            time =  -1;
-            result = dfsVisit(s, i, key);
             setNotVisited();
             this.result.setDefaultValues();
+            time =  -1;
+            result = dfsVisit(s, i, key);
         }
-        searchResult();
+        //searchResult();
         return result;
     }
 

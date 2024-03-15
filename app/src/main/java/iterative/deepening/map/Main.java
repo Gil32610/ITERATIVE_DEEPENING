@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<GraphNode> nodeList;
         Graph graph;
-         String[] cities = { "Foz do Iguaçu", "Cascavel", "Pato Branco", "Campo Mourão", "Maringá", "Guarapuava",
+        String[] cities = { "Foz do Iguaçu", "Cascavel", "Pato Branco", "Campo Mourão", "Maringá", "Guarapuava",
                 "Londrina", "União da Vitória", "Irati", "Ponta Grossa", "Curitiba" };
         ArrayList<String> identity = new ArrayList<>();
         for (int i = 0; i < cities.length; i++) {
@@ -21,7 +21,7 @@ public class Main {
             nodeList.add(new GraphNode(cities[i]));
         }
         graph = new Graph(nodeList);
-        graph.addWeightedUndirectedEdge(0, 1, peso[0]);
+        graph.addWeightedUndirectedEdge(identity.indexOf("Foz do Iguaçu"), identity.indexOf("Cascavel"), peso[0]);
         graph.addWeightedUndirectedEdge(identity.indexOf("Foz do Iguaçu"), identity.indexOf("Pato Branco"), peso[1]);
         graph.addWeightedUndirectedEdge(identity.indexOf("Cascavel"), identity.indexOf("Campo Mourão"), peso[2]);
         graph.addWeightedUndirectedEdge(identity.indexOf("Cascavel"), identity.indexOf("Guarapuava"), peso[3]);
@@ -41,7 +41,6 @@ public class Main {
 
         graph.depthFirstSearch(0, "União da Vitória".toUpperCase());
         graph.getResult().searchSummary();
-        
 
     }
 }
