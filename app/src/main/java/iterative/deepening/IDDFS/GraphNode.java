@@ -7,8 +7,7 @@ public class GraphNode {
     private String identity;
     private Color color;
 
-    public GraphNode(int value, String identity){
-    
+    public GraphNode( String identity){
         this.color = Color.WHITE;
         this.identity = identity.toUpperCase();
     }
@@ -31,7 +30,7 @@ public class GraphNode {
     public boolean equals(Object obj){
         if(obj instanceof GraphNode){
             GraphNode node = (GraphNode) obj;
-            return this.identity == node.identity;
+            return this.identity.equals(node.identity);
         }else return false;
     }
     

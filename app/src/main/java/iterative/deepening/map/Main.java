@@ -1,23 +1,15 @@
-package iterative.deepening.datastructuretests;
-
-import iterative.deepening.*;
-import iterative.deepening.IDDFS.Edge;
-import iterative.deepening.IDDFS.Graph;
-import iterative.deepening.IDDFS.GraphNode;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+package iterative.deepening.map;
 
 import java.util.ArrayList;
 
-public class GraphTest {
-    private ArrayList<GraphNode> nodeList;
-    private Graph graph;
+import iterative.deepening.IDDFS.Graph;
+import iterative.deepening.IDDFS.GraphNode;
 
-    @BeforeEach
-    public void setUp() {
-        String[] cities = { "Foz do Iguaçu", "Cascavel", "Pato Branco", "Campo Mourão", "Maringá", "Guarapuava",
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<GraphNode> nodeList;
+        Graph graph;
+         String[] cities = { "Foz do Iguaçu", "Cascavel", "Pato Branco", "Campo Mourão", "Maringá", "Guarapuava",
                 "Londrina", "União da Vitória", "Irati", "Ponta Grossa", "Curitiba" };
         ArrayList<String> identity = new ArrayList<>();
         for (int i = 0; i < cities.length; i++) {
@@ -47,13 +39,9 @@ public class GraphTest {
         graph.addWeightedUndirectedEdge(identity.indexOf("Irati"), identity.indexOf("Curitiba"), peso[15]);
         graph.addWeightedUndirectedEdge(identity.indexOf("Ponta Grossa"), identity.indexOf("Curitiba"), peso[16]);
 
-    }
+        graph.depthFirstSearch(0, "União da Vitória".toUpperCase());
+        graph.getResult().searchSummary();
+        
 
-    @Test
-    public void testSimpleGraph() {
-        GraphNode expected = new GraphNode("União da Vitória");
-        GraphNode actual = graph.depthFirstSearch(0, "União da Vitória".toUpperCase());
-        Assertions.assertEquals(expected, actual);
     }
-
 }

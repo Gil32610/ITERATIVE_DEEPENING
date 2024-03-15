@@ -1,6 +1,7 @@
 package iterative.deepening.IDDFS;
 
-
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class SearchResult {
     private int[] start;
@@ -30,12 +31,12 @@ public class SearchResult {
         return previous;
     }
 
-    public void setFinishTime(int time){
-        this.finish[time]= time;
+    public void setFinishTime(int index, int time){
+        this.finish[index]= time;
     }
     
-    public void setStartTime(int time){
-        this.start[time]= time;
+    public void setStartTime(int index, int time){
+        this.start[index]= time;
     }
 
     public void setPreviousNode(String s, int index){
@@ -48,5 +49,13 @@ public class SearchResult {
             finish[index] = -2;
             previous[index]= null;
         }
+    }
+    public void searchSummary(){
+        System.out.println("Start time:");
+        System.out.println(Arrays.toString(start));
+        System.out.println("Finisnh time:");
+        System.out.println(Arrays.toString(finish));
+        System.out.println("Hierarchy:");
+        System.out.println(Arrays.toString(previous));
     }
 }

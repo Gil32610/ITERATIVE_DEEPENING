@@ -19,6 +19,12 @@ public class Graph {
         adjacencyMatrix[u][v] = new Edge(nodeList.get(v), weight);
     }
 
+    
+
+    public SearchResult getResult() {
+        return result;
+    }
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -46,17 +52,19 @@ public class Graph {
     }
 
     public GraphNode depthFirstSearch(int s, String key) {
-        // SearchResult result = new SearchResult(nodeList.size());
-        // result.setDefaultValues();
+         result = new SearchResult(nodeList.size());
+         result.setDefaultValues();
         setNotVisited();
-        time = -1;
+        
 
         GraphNode result = null;
 
         // iterative deepening goes here
         for (int i = 0; i < adjacencyMatrix.length && result == null; i++) {
+            time =  -1;
             result = dfsVisit(s, i, key);
             setNotVisited();
+            this.result.setDefaultValues();
         }
         searchResult();
         return result;
@@ -80,9 +88,9 @@ public class Graph {
 
     private GraphNode dfsVisit(int u, int maxDepth, String key) {
         GraphNode result = null;
-        this.result.setStartTime(++time);
+        this.result.setStartTime(u,++time);
         nodeList.get(u).setColor(Color.GRAY);
-        if (nodeList.get(u).getIdentity() == key) {
+        if (nodeList.get(u).getIdentity().equals(key)) {
             result = nodeList.get(u);
         }
 
@@ -99,8 +107,9 @@ public class Graph {
             }
         }
         nodeList.get(u).setColor(Color.BLACK);
-        this.result.setFinishTime(++time);
+        this.result.setFinishTime(u,++time);
         return result;
     }
+
 
 }
