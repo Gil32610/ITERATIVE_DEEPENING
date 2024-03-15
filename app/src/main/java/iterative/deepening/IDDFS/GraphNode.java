@@ -6,23 +6,20 @@ public class GraphNode {
 
     private String identity;
     private Color color;
-    private int value;
 
-    public GraphNode(int value, char identity){
-        this.value = value;
+    public GraphNode(int value, String identity){
+    
         this.color = Color.WHITE;
-        this.identity = Character.toUpperCase(identity);
+        this.identity = identity.toUpperCase();
     }
 
     public Color getColor() {
         return color;
     }
 
-    public int getValue() {
-        return value;
-    }
+   
 
-    public Character getIdentity() {
+    public String getIdentity() {
         return identity;
     }
 
@@ -34,7 +31,7 @@ public class GraphNode {
     public boolean equals(Object obj){
         if(obj instanceof GraphNode){
             GraphNode node = (GraphNode) obj;
-            return this.value == node.value;
+            return this.identity == node.identity;
         }else return false;
     }
     

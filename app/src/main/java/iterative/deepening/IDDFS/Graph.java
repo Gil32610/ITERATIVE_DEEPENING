@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Graph {
-    private boolean[][] adjacencyMatrix;
+    private Edge[][] adjacencyMatrix;
     private ArrayList<GraphNode> nodeList;
     private int time;
     private SearchResult result;
 
     public Graph(ArrayList<GraphNode> nodeList) {
         this.nodeList = nodeList;
-        this.adjacencyMatrix = new boolean[nodeList.size()][nodeList.size()];
+        this.adjacencyMatrix = new Edge[nodeList.size()][nodeList.size()];
     }
 
-    public void addUndirectedEdge(int u, int v) {
-        adjacencyMatrix[v][u] = true;
-        adjacencyMatrix[u][v] = true;
+    public void addWeightedUndirectedEdge(int u, int v, int weight) {
+        adjacencyMatrix[v][u] = new Edge(nodeList.get(u),weight);
+        adjacencyMatrix[u][v] = new Edge(nodeList.get(v), weight);
     }
 
     @Override
@@ -41,11 +41,11 @@ public class Graph {
 
     }
 
-    private int flag(boolean status) {
-        return status ? 1 : 0;
+    private String flag(Edge status) {
+        return status!=null ? status.getDestination() + "Weight: " + status.getDestination(): "No edge";
     }
 
-    public GraphNode depthFirstSearch(int s, int key) {
+    public GraphNode depthFirstSearch(int s, String key) {
         // SearchResult result = new SearchResult(nodeList.size());
         // result.setDefaultValues();
         setNotVisited();
@@ -78,11 +78,11 @@ public class Graph {
         System.out.println(Arrays.toString(result.getPrevious()));
     }
 
-    private GraphNode dfsVisit(int u, int maxDepth, int key) {
+    private GraphNode dfsVisit(int u, int maxDepth, String key) {
         GraphNode result = null;
         this.result.setStartTime(++time);
         nodeList.get(u).setColor(Color.GRAY);
-        if (nodeList.get(u).getValue() == key) {
+        if (nodeList.get(u).getIdentity() == key) {
             result = nodeList.get(u);
         }
 
@@ -90,7 +90,7 @@ public class Graph {
             return result;
         }
         for (int v = 0; v < adjacencyMatrix.length; v++) {
-            if (adjacencyMatrix[u][v] && nodeList.get(v).getColor().equals(Color.WHITE) && result == null) {
+            if (adjacencyMatrix[u][v]!=null && nodeList.get(v).getColor().equals(Color.WHITE) && result == null) {
                 this.result.setPreviousNode(nodeList.get(u).getIdentity(), v);
                 result = dfsVisit(v, maxDepth - 1, key);
                 if (result != null) {
