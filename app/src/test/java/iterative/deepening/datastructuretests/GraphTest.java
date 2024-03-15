@@ -1,6 +1,7 @@
 package iterative.deepening.datastructuretests;
 
 import iterative.deepening.*;
+import iterative.deepening.IDDFS.Edge;
 import iterative.deepening.IDDFS.Graph;
 import iterative.deepening.IDDFS.GraphNode;
 
@@ -15,13 +16,29 @@ public class GraphTest {
 
     @BeforeEach
     public void setUp() {
-        int[] values ={5,7,13,17,9,18};
-        char[] identity = {'A', 'B', 'C','D', 'E', 'F'};
+        String[] identity = {"Foz do Iguaçu", "Cascavel", "Pato Branco", "Campo Mourão", "Maringá", "Guarapuava", "Londrina", "União da Vitória", "Irati", "Ponta Grossa", "Curitiba"};
+        int[] peso = {140, 337, 195, 332, 188, 414, 91, 206, 98, 318, 163, 104, 274, 123, 241, 154, 114};
         nodeList = new ArrayList<>();
 
-        for (int i = 0; i < values.length; i++) {
-            nodeList.add(new GraphNode(values[i], identity[i]));
-        }
+        nodeList.add(new GraphNode("Foz do Iguaçu", peso[0], "Cascavel");
+        nodeList.add(new GraphNode("Foz do Iguaçu", peso[1], "Pato Branco");
+        nodeList.add(new GraphNode("Cascavel", peso[2], "Campo Mourão");
+        nodeList.add(new GraphNode("Cascavel", peso[3], "Guarapuava");
+        nodeList.add(new GraphNode("Cascavel", peso[4], "União da Vitória");
+        nodeList.add(new GraphNode("Pato Branco", peso[5], "Guarapuava");
+        nodeList.add(new GraphNode("Campo Mourão", peso[6], "Maringá");
+        nodeList.add(new GraphNode("Campo Mourão", peso[7], "Guarapuava");
+        nodeList.add(new GraphNode("Maringá", peso[8], "Londrina");
+        nodeList.add(new GraphNode("Guarapuava", peso[9], "Londrina");
+        nodeList.add(new GraphNode("Guarapuava", peso[10], "Ponta Grossa");
+        nodeList.add(new GraphNode("Guarapuava", peso[11], "Irati");
+        nodeList.add(new GraphNode("Londrina", peso[12], "Ponta Grossa");
+        nodeList.add(new GraphNode("União da Vitória", peso[13], "Irati");
+        nodeList.add(new GraphNode("União da Vitória", peso[14], "Curitiba");
+        nodeList.add(new GraphNode("Irati", peso[15], "Curitiba");
+        nodeList.add(new GraphNode("Ponta Grossa", peso[16], "Curitiba");
+
+        Graph G = new Graph(nodeList);
     }
 
     @Test
